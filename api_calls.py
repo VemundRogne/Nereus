@@ -59,8 +59,47 @@ def get_system_information(
         raise Api_not_200_error(Response)
 
 
-def get_latest_samples(api_key):
-    pass
+def get_latest_samples(
+        api_key,
+        api_url: str = api_url
+    ):
+    """ Gets latest samples from all sensors in a system
+
+    This info comes in the form of a list of dictionaries, one dict per sensor:
+    [
+        {
+            'added': dict{
+                '_nanoseconds': int,
+                '_seconds': int
+            },
+            'alias': str,       # A name given to the sensor
+            'gatewayImei': str,
+            'node': str,
+            'pv': int,
+            'rawValues': list,  # Raw values from the sensors
+            'rssi': ,
+            'si': list,         # Units in the SI-system
+            'sn': str,          # SENSOR-ID
+            'status': statuscode,
+            'time': int,
+            'type': int,
+            'values': list      # Converted values (in the units given in si)
+        },
+        {
+        },
+    ]
+    """
+    Response = requests.post(
+        api_url+"/latestSamples",
+        {'Content-Type': 'application/json', 'apiKey': api_key}
+    )
+
+    if Response.status_code == 200:
+        return Response.json()
+    else:
+        # We did not receive [200], which means _something_ went wrong.
+        # The user must themselves try to figure out what the statuscode means
+        raise Api_not_200_error(Response)
 
 
 def get_sensor_information():
