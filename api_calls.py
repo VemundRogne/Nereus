@@ -102,8 +102,55 @@ def get_latest_samples(
         raise Api_not_200_error(Response)
 
 
-def get_sensor_information():
-    pass
+def get_sensor_information(
+        api_key,
+        sensor_id,
+        api_url: str = api_url
+    ):
+    """ Gets all available info about a specific sensor in the system
+
+    This requires the sensor_id (the api uses the name 'sn'). One way of getting
+    this ID is through the get_latest_samples call, which will respond with some
+    data from all sensors in the system.
+
+    Returns a dictionary:
+    {
+        'alias': alias of the sensor,
+        'config': {
+            'binary': {},
+            'calc': [],     # Information about calculation from raw to values
+            'digitiser': {} # Info about the digitiser and units
+            },
+            'max': [],
+            'min': [],
+            'pv': int,
+            'si': []    # Units
+        },
+        'created': int,
+        'description': str,
+        'owner': str,
+        'regcode': str,
+        'tags': [],
+        'type': int,
+        'userPresence': int,
+    }
+    """
+    Response = requests.post(
+        api_url+"/sensorInfo",
+        {
+            'Content-Type': 'application/json',
+            'apiKey': api_key,
+            'sn': str(sensor_id)
+        }
+    )
+
+    if Response.status_code == 200:
+        return Response.json()
+    else:
+        # We did not receive [200], which means _something_ went wrong.
+        # The user must themselves try to figure out what the statuscode means
+        raise Api_not_200_error(Response)
+
 
 def get_sensor_samples():
     pass
