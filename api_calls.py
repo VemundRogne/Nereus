@@ -27,7 +27,10 @@ class Api_not_200_error(Exception):
         super().__init__(self.message)
 
 
-def get_system_information(api_key):
+def get_system_information(
+        api_key,
+        api_url: str = api_url
+    ):
     """ Get some info about the system
 
     The information is mostly metadata about the system itself
