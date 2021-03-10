@@ -10,7 +10,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      NEREUS_API_KEY: ${{ API_KEY }}
+      NEREUS_API_KEY: ${{ secrets.API_KEY }}
     strategy:
       matrix:
         python-version: [3.7, 3.8, 3.9]
