@@ -152,11 +152,65 @@ def get_sensor_information(
         raise Api_not_200_error(Response)
 
 
-def get_sensor_samples():
-    pass
+def get_sensor_samples(
+        api_key,
+        sensor_id,
+        from_time: int,
+        to_time: int,
+        order: str = "desc",
+        api_url: str = api_url
+    ):
+    """ Gets samples from a sensor within specified time 
+
+    Args:
+        api_key: The "password" to the API
+        sensor_id: The ID of the specific sensor, called 'sn' by the root api
+        from_time: Start time in epoch timestamp (milliseconds)
+        to_time: End time in epoch timestamp (milliseconds)
+        order: string - default "desc"
+        api_urls. The url to the API, defaults to the value in api_calls.api_url
+
+    Returns: 
+        A list of sensor-readings
+    
+    Raises:
+        Api_not_200_error if the status_code is not 200.
+    """
+    Response = requests.post(
+        api_url+"/sensorStream",
+        {
+            'Content-Type': 'application/json',
+            'apiKey': api_key,
+            'sn': str(sensor_id),
+            'from': int(from_time),
+            'to': int(to_time)
+        }
+    )
+
+    if Response.status_code == 200:
+        return Response.json()
+    else:
+        # We did not receive [200], which means _something_ went wrong.
+        # The user must themselves try to figure out what the statuscode means
+        raise Api_not_200_error(Response)
+
 
 def add_sensor():
-    pass
+    raise NotImplementedError("This api-call has not been implemented")
+
 
 def get_sensor_types():
-    pass
+    Response = requests.post(
+        api_url+"/getTypes",
+        {
+            'Content-Type': 'application/json',
+            'apiKey': api_key
+        }
+    )
+
+    if Response.status_code == 200:
+        return Response.json()
+    else:
+        # We did not receive [200], which means _something_ went wrong.
+        # The user must themselves try to figure out what the statuscode means
+        raise Api_not_200_error(Response)
