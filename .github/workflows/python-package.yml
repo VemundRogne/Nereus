@@ -5,13 +5,12 @@ name: Python package
 
 on: push
 
-env:
-  NEREUS_API_KEY: ${{ API_KEY }}
-
 jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      NEREUS_API_KEY: ${{ API_KEY }}
     strategy:
       matrix:
         python-version: [3.7, 3.8, 3.9]
