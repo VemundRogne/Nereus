@@ -1,9 +1,11 @@
 """ https://neuronsensors.app/restApiDocs """
+import os
+
 import requests
 import json
 
 api_url = 'https://us-central1-neuron2.cloudfunctions.net'
-api_key = ''
+api_key = os.environ.get('NEREUS_API_KEY')
 
 
 class Api_not_200_error(Exception):
@@ -28,7 +30,7 @@ class Api_not_200_error(Exception):
 
 
 def get_system_information(
-        api_key,
+        api_key = api_key,
         api_url: str = api_url
     ):
     """ Get some info about the system

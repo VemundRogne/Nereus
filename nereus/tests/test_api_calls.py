@@ -4,7 +4,9 @@ import nereus.api_calls as api_calls
 
 
 def test_get_system_information():
-    pytest.skip("Test not implemented")
+    result = api_calls.get_system_information()
+    assert result
+
 
 def test_get_latest_samples():
     pytest.skip("Test not implemented")
