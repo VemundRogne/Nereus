@@ -62,7 +62,7 @@ def get_system_information(
 
 
 def get_latest_samples(
-        api_key,
+        api_key = api_key,
         api_url: str = api_url
     ):
     """ Gets latest samples from all sensors in a system
@@ -105,7 +105,7 @@ def get_latest_samples(
 
 
 def get_sensor_information(
-        api_key,
+        api_key = api_key,
         sensor_id,
         api_url: str = api_url
     ):
@@ -155,11 +155,11 @@ def get_sensor_information(
 
 
 def get_sensor_samples(
-        api_key,
         sensor_id,
         from_time: int,
         to_time: int,
         order: str = "desc",
+        api_key = api_key,
         api_url: str = api_url
     ):
     """ Gets samples from a sensor within specified time 
