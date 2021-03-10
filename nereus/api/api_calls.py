@@ -105,8 +105,8 @@ def get_latest_samples(
 
 
 def get_sensor_information(
-        api_key = api_key,
         sensor_id,
+        api_key = api_key,
         api_url: str = api_url
     ):
     """ Gets all available info about a specific sensor in the system
