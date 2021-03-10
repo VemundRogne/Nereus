@@ -1,6 +1,6 @@
 import pytest
 
-import nereus.api_calls as api_calls
+import nereus.api.api_calls as api_calls
 
 
 def test_get_system_information():
