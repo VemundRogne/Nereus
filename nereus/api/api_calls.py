@@ -4,9 +4,14 @@ import os
 import requests
 import json
 
-api_url = 'https://us-central1-neuron2.cloudfunctions.net'
-api_key = os.environ.get('NEREUS_API_KEY')
+import nereus.config_api_access
 
+# Get api url and key from system environment variables
+api_url, api_key = nereus.config_api_access.get_api_url_and_key()
+
+# Call on the user to configure them if one or more is not present
+if api_url == None or api_key == None:
+    api_url, api_key = nereus.config_api_access.user_config_api_url_and_key()
 
 class Api_not_200_error(Exception):
     """ This exception is raised whenever a requests.Reponse is not OK (200)
