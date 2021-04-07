@@ -2,9 +2,36 @@
 
 import os
 
+## ------------ HARDCODE API KEY AND URL HERE ----------------------
+# This is an option to hardcode the api_url and api_key
+
+# Type the URL and key inside the "", for example:
+# api_url = "https://eit_neuronsensors_api.no/"
+# api_key = "12354863faefs4685"
+
+hardcoded_api_url = ""
+hardcoded_api_key = ""
+## ----------- END HARDCODE API KEY AND URL HERE -------------------
+
+
 def get_api_url_and_key():
-    api_url = os.environ.get('NEREUS_API_URL')
-    api_key = os.environ.get('NEREUS_API_KEY')
+    """ Gets the configured API-url and key
+
+    Uses the hardcoded url and key if they have been configured in config_api_acces file, if that
+    has not been configured try to get ones from the environment variables.
+    
+    Returns api_url, api_key
+    """
+    if hardcoded_api_url != "":
+        api_url = hardcoded_api_url
+    else:
+        api_url = os.environ.get('NEREUS_API_URL')
+
+    if hardcoded_api_key != "":
+        api_key = hardcoded_api_key
+    else:
+        api_key = os.environ.get('NEREUS_API_KEY')
+
     return api_url, api_key
 
 
